@@ -5,12 +5,24 @@ import NewItem from "./new-item";
 import items from './items.json';
 import { useState } from "react";
 import MealIdeas from "./meal-ideas";
+import Link from "next/link";
+import { useUserAuth } from "../_utils/auth-context";
+
 
 export default function Page() {
   
   const [itemList, setItemList] = useState(items);
   const [ingredient, setIngredient] = useState("");
+  const { user }  = useUserAuth();
 
+  if(!user){
+    return (
+      <div>
+        <p>You must be logged in</p>
+        <Link href="/week-9/"></Link>
+      </div>
+    )
+  }
 
   const handleAddItem = (item) => {
     setItemList([...itemList, item]);
